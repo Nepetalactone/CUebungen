@@ -3,6 +3,7 @@
 
 int getline(char line[], int maxline);
 void copy(char to[], char from[]);
+void reverse(char s[]);
 
 main()
 {
@@ -14,16 +15,24 @@ main()
 	max = 0;
 	while ((len = getline(line, MAXLINE)) > 0)
 	{
-		if (len > max)
-		{
-			max = len;
-			copy(longest, line);
-		}
+		//if (len > max)
+		//{
+		//	max = len;
+		//	copy(longest, line);
+		//}
+		
+		//if (len >= 8)
+		//{
+		//	printf("%s %d", line, len);
+		//}
+		
+		reverse(line);
+		printf("%s", line);
 	}
-	if (max > 0)
-	{
-		printf("%s", longest);
-	}
+	//if (max > 0)
+	//{
+	//	printf("%s", longest);
+	//}
 	return 0;
 }
 
@@ -52,5 +61,29 @@ void copy(char to[], char from[])
 	while ((to[i] = from[i]) != '\0')
 	{
 		++i;
+	}
+}
+
+void reverse(char s[])
+{
+	char t;
+	int i, j;
+	
+	j = 0;
+	i = 0;
+	
+	while ((s[j] != '\0') && (s[j] != '\n'))
+	{
+		j++;
+	}
+	
+	j--;
+	
+	for (j; j > i; j--)
+	{
+		t = s[i];
+		s[i] = s[j];
+		s[j] = t;
+		i++;
 	}
 }
