@@ -58,7 +58,7 @@ void *nmalloc(unsigned int length)
 		iterator = (block_t *) voidIT;
 	}
 	
-	if (MAXLENGTH - allocatedSpace > length)
+	if (MAXLENGTH - allocatedSpace > length) //stimmt noch nicht
 	{
 		iterator->valid = 1;
 		iterator->length = length;
