@@ -20,20 +20,28 @@ static struct block_t * curPos;
 void main()
 {
 	curPos = (block_t *) &memory[0];
-	printf("Current curPos position1: %d\n\n", curPos);
-	void * mll1 = nmalloc(20);
-	printf("Current malloc position: %d\n\n", mll1);
+	nmalloc(39980);
+	nmalloc(2);
+	//printf("Current curPos position1: %d\n\n", curPos);
+	//printf("Current allocated memory: %d\n", allocatedSpace);
+	//void * mll1 = nmalloc(20);
+	//printf("Current malloc position: %d\n\n", mll1);
+	//printf("Current allocated memory: %d\n", allocatedSpace);
+
+	//void * mll2 = nmalloc(40);
+	//printf("Current malloc position: %d\n\n", mll2);
+	//printf("Current allocated memory: %d\n", allocatedSpace);
 	
-	void * mll2 = nmalloc(40);
-	printf("Current malloc position: %d\n\n", mll2);
+	//void * mll3 = nmalloc(60);
+	//printf("Current malloc position: %d\n\n", mll3);
+	//printf("Current allocated memory: %d\n", allocatedSpace);
 	
-	void * mll3 = nmalloc(60);
-	printf("Current malloc position: %d\n\n", mll3);
-	
-	nfree(mll2);
-	
-	void * mll4 = nmalloc(40);
-	printf("Current malloc position: %d\n\n", mll4);
+	//nfree(mll2);
+	//printf("Current allocated memory: %d\n", allocatedSpace);
+
+	//void * mll4 = nmalloc(40);
+	//printf("Current malloc position: %d\n\n", mll4);
+	//printf("Current allocated memory: %d\n", allocatedSpace);
 }
 
 void *nmalloc(unsigned int length)
@@ -48,31 +56,34 @@ void *nmalloc(unsigned int length)
 			iterator->length = length;
 			allocatedSpace += (sizeof(unsigned int) * 3) + length;
 			void *voidIT = (void *)iterator;
-			voidIT += (sizeof(unsigned int) * 2) + length;
+			voidIT += (sizeof(unsigned int) * 3) + length;
 			curPos = (block_t *) voidIT;
 			return voidIT - length;
 		}
 		
 		void *voidIT = (void *)iterator;
-		voidIT += (sizeof(unsigned int) * 2) + iterator->length;
+		voidIT += (sizeof(unsigned int) * 3) + iterator->length;
 		iterator = (block_t *) voidIT;
 	}
 	
-	if (MAXLENGTH - allocatedSpace > length) //stimmt noch nicht
+	printf("%d\n", MAXLENGTH * 4 - allocatedSpace);
+	if (MAXLENGTH * 4  - allocatedSpace > length)
 	{
 		iterator->valid = 1;
 		iterator->length = length;
-		allocatedSpace += (sizeof(unsigned int) * 2) + length;
+		allocatedSpace += (sizeof(unsigned int) * 3) + length;
 		void *voidIT = (void *)iterator;
-		voidIT += (sizeof(unsigned int) * 2) + length;
+		voidIT += (sizeof(unsigned int) * 3) + length;
 		curPos = (block_t *) voidIT;
 		return voidIT - length;
 	}
+	return NULL;
 }
 
 void nfree(void *toDelete)
 {
-	toDelete -= (sizeof(unsigned int) * 2);
+	toDelete -= (sizeof(unsigned int) * 3);
 	struct block * temp = (block_t *) toDelete;
 	temp->valid = 0;
+	allocatedSpace = allocatedSpace - ((sizeof(unsigned int) * 3) + temp->length);
 }
