@@ -67,7 +67,7 @@ void *nmalloc(unsigned int length)
 	}
 	
 	printf("%d\n", MAXLENGTH * 4 - allocatedSpace);
-	if (MAXLENGTH * 4  - allocatedSpace > length)
+	if (MAXLENGTH * 4  - allocatedSpace > length + sizeof(unsigned int) * 3)
 	{
 		iterator->valid = 1;
 		iterator->length = length;
