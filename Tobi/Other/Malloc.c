@@ -57,6 +57,11 @@ void *nmalloc(unsigned int length)
 	{
 		if ((iterator->valid == 0) && (iterator->length + sizeof(unsigned int) * 3 >= length))
 		{
+			void * newVoidBlock = (void *) iterator;
+			newVoidBlock += sizeof(unsigned int) * 3 + length;
+			struct block * newBlock = (block_t *) newVoidBlock;
+			newBlock->length = iterator->length - length;
+		
 			iterator->valid = 1;
 			iterator->length = length;
 			allocatedSpace += (sizeof(unsigned int) * 3) + length;
