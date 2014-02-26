@@ -16,11 +16,11 @@ struct block
 
 typedef struct block block_t;
 static struct block_t * curPos;
+void * maxPos = (void *)&memory[MAXLENGTH];
 
 void main()
 {
 	curPos = (block_t *) &memory[0];
-	void * maxPos = (void *)&memory[MAXLENGTH];
 	void * curPoss = (void *) curPos;
 	printf("Current free memory: %d\n\n", maxPos - curPoss);
 	//nmalloc(39980);
@@ -53,7 +53,7 @@ void *nmalloc(unsigned int length)
 {
 	struct block * iterator = (block_t *) &memory[0];
 
-	while (iterator != curPos)
+	while (iterator != (block_t *)curPos)
 	{
 		if ((iterator->valid == 0) && (iterator->length + sizeof(unsigned int) * 3 >= length))
 		{
@@ -104,9 +104,9 @@ void defragment()
 	struct block * iterator = (block_t *) &memory[0];
 	struct block * temp = (block_t *) &memory[0];
 	
-	while (iterator != curPos)
+	while (iterator != (block_t *)curPos)
 	{
-		while ((iterator->valid == 0)&&(iterator < curPos))
+		while ((iterator->valid == 0)&&(iterator < (block_t*)curPos))
 		{
 			temp->length += sizeof(unsigned int) * 3 + iterator->length;
 			void *voidIT = (void *)iterator;

@@ -47,7 +47,7 @@ void *nmalloc(unsigned int length)
 {
 	struct block * iterator = (block_t *) &memory[0];
 
-	while (iterator < &memory[MAXLENGTH])	//search for a non-valid block in the array
+	while (iterator < (block_t *)&memory[MAXLENGTH])	//search for a non-valid block in the array
 	{
 		if ((iterator->valid == 0) && (iterator->length + sizeof(unsigned int) * 3 >= length))	//if a sufficiently big block is found, allocate it 
 		{
@@ -82,7 +82,7 @@ void nfree(void *toDelete)
 	voidIT += sizeof(unsigned int) * 3 + temp->length;
 	struct block * iterator = (block_t *) voidIT;
 	
-	while ((iterator->valid == 0)&&(iterator < &memory[MAXLENGTH]))	//add length of adjacent non-valid blocks to valid block
+	while ((iterator->valid == 0)&&(iterator < (block_t *)&memory[MAXLENGTH]))	//add length of adjacent non-valid blocks to valid block
 	{
 			temp->length += sizeof(unsigned int) * 3 + iterator->length;
 			void *voidIT = (void *)iterator;
@@ -97,9 +97,9 @@ void defragment()
 	struct block * iterator = (block_t *) &memory[0];
 	struct block * temp = (block_t *) &memory[0];
 	
-	while (iterator < &memory[MAXLENGTH])	//iterate through the whole array
+	while (iterator < (block_t *)&memory[MAXLENGTH])	//iterate through the whole array
 	{
-		while ((iterator->valid == 0)&&(iterator < &memory[MAXLENGTH]))		//add length of adjacent non-valid blocks to valid block
+		while ((iterator->valid == 0)&&(iterator < (block_t *)&memory[MAXLENGTH]))		//add length of adjacent non-valid blocks to valid block
 		{
 			temp->length += sizeof(unsigned int) * 3 + iterator->length;
 			void *voidIT = (void *)iterator;
