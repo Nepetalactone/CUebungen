@@ -15,38 +15,12 @@ struct block
 };
 
 typedef struct block block_t;
-static struct block_t * curPos;
 
 void main()
 {
-	curPos = (block_t *) &memory[0];
-	void * maxPos = (void *)&memory[MAXLENGTH];
-	void * curPoss = (void *) curPos;
-	printf("Current free memory: %d\n\n", maxPos - curPoss);
-	//nmalloc(39980);
-	nmalloc(2);
-	curPoss = (void *) curPos;
-	printf("Current free memory: %d\n\n", maxPos - (void *)curPos);
-	//printf("Current curPos position1: %d\n\n", curPos);
-	//printf("Current allocated memory: %d\n", allocatedSpace);
-	//void * mll1 = nmalloc(20);
-	//printf("Current malloc position: %d\n\n", mll1);
-	//printf("Current allocated memory: %d\n", allocatedSpace);
-
-	//void * mll2 = nmalloc(40);
-	//printf("Current malloc position: %d\n\n", mll2);
-	//printf("Current allocated memory: %d\n", allocatedSpace);
-	
-	//void * mll3 = nmalloc(60);
-	//printf("Current malloc position: %d\n\n", mll3);
-	//printf("Current allocated memory: %d\n", allocatedSpace);
-	
-	//nfree(mll2);
-	//printf("Current allocated memory: %d\n", allocatedSpace);
-
-	//void * mll4 = nmalloc(40);
-	//printf("Current malloc position: %d\n\n", mll4);
-	//printf("Current allocated memory: %d\n", allocatedSpace);
+	struct block * mainBlock = (block_t *) &memory[0];
+	mainBlock->length = MAXLENGTH - 1;
+	mainBlock->valid = 0;
 }
 
 void *nmalloc(unsigned int length)
@@ -57,8 +31,14 @@ void *nmalloc(unsigned int length)
 	{
 		if ((iterator->valid == 0) && (iterator->length + sizeof(unsigned int) * 3 >= length))
 		{
+			void * newVoidBlock = (void *) iterator;
+			newVoidBlock += sizeof(unsigned int) * 3 + length;
+			struct block * newBlock = (block_t *) newVoidBlock;
+			newBlock->length = iterator->length - length;
+	
 			iterator->valid = 1;
 			iterator->length = length;
+			
 			allocatedSpace += (sizeof(unsigned int) * 3) + length;
 			void *voidIT = (void *)iterator;
 			voidIT += (sizeof(unsigned int) * 3) + length;
