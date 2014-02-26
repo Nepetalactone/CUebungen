@@ -96,6 +96,7 @@ void nfree(void *toDelete)
 	toDelete -= (sizeof(unsigned int) * 3);
 	struct block * temp = (block_t *) toDelete;
 	temp->valid = 0;
+	allocatedSpace = allocatedSpace - (temp->length + sizeof(unsigned int) * 3);
 }
 
 void defragment()
