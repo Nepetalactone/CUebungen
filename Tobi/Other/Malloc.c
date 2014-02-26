@@ -20,8 +20,13 @@ static struct block_t * curPos;
 void main()
 {
 	curPos = (block_t *) &memory[0];
-	nmalloc(39980);
+	void * maxPos = (void *)&memory[MAXLENGTH];
+	void * curPoss = (void *) curPos;
+	printf("Current free memory: %d\n\n", maxPos - curPoss);
+	//nmalloc(39980);
 	nmalloc(2);
+	curPoss = (void *) curPos;
+	printf("Current free memory: %d\n\n", maxPos - (void *)curPos);
 	//printf("Current curPos position1: %d\n\n", curPos);
 	//printf("Current allocated memory: %d\n", allocatedSpace);
 	//void * mll1 = nmalloc(20);
@@ -67,7 +72,7 @@ void *nmalloc(unsigned int length)
 	}
 	
 	printf("%d\n", MAXLENGTH * 4 - allocatedSpace);
-	if (MAXLENGTH * 4  - allocatedSpace > length + sizeof(unsigned int) * 3)
+	if (MAXLENGTH * 4  - (maxPos - (void *)curPos) > length + sizeof(unsigned int) * 3)
 	{
 		iterator->valid = 1;
 		iterator->length = length;
@@ -77,6 +82,7 @@ void *nmalloc(unsigned int length)
 		curPos = (block_t *) voidIT;
 		return voidIT - length;
 	}
+	printf("Error: couldn't allocate specified space\n");
 	return NULL;
 }
 
@@ -85,5 +91,22 @@ void nfree(void *toDelete)
 	toDelete -= (sizeof(unsigned int) * 3);
 	struct block * temp = (block_t *) toDelete;
 	temp->valid = 0;
-	allocatedSpace = allocatedSpace - ((sizeof(unsigned int) * 3) + temp->length);
+}
+
+void defragment()
+{
+	struct block * iterator = (block_t *) &memory[0];
+	struct block * temp = (block_t *) &memory[0];
+	
+	while (iterator != curPos)
+	{
+		while ((iterator->valid == 0)&&(iterator > curPos))
+		{
+			temp->length += sizeof(unsigned int) * 3 + iterator->length;
+			void *voidIT = (void *)iterator;
+			voidIT += (sizeof(unsigned int) * 3) + iterator->length; 
+			iterator = (block_t *) voidIT;
+		}
+		temp = iterator;
+	}
 }
