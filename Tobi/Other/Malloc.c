@@ -20,28 +20,29 @@ static struct block_t * curPos;
 void main()
 {
 	curPos = (block_t *) &memory[0];
-	nmalloc(39980);
-	nmalloc(2);
-	//printf("Current curPos position1: %d\n\n", curPos);
-	//printf("Current allocated memory: %d\n", allocatedSpace);
-	//void * mll1 = nmalloc(20);
-	//printf("Current malloc position: %d\n\n", mll1);
-	//printf("Current allocated memory: %d\n", allocatedSpace);
-
-	//void * mll2 = nmalloc(40);
-	//printf("Current malloc position: %d\n\n", mll2);
-	//printf("Current allocated memory: %d\n", allocatedSpace);
+	//nmalloc(39980);
+	//nmalloc(2);
+	printf("Current curPos position1: %d\n\n", curPos);
+	printf("Current allocated memory: %d\n", allocatedSpace);
 	
-	//void * mll3 = nmalloc(60);
-	//printf("Current malloc position: %d\n\n", mll3);
-	//printf("Current allocated memory: %d\n", allocatedSpace);
-	
-	//nfree(mll2);
-	//printf("Current allocated memory: %d\n", allocatedSpace);
+	void * mll1 = nmalloc(20);
+	printf("Current malloc position: %d\n\n", mll1);
+	printf("Current allocated memory: %d\n", allocatedSpace);
 
-	//void * mll4 = nmalloc(40);
-	//printf("Current malloc position: %d\n\n", mll4);
-	//printf("Current allocated memory: %d\n", allocatedSpace);
+	void * mll2 = nmalloc(40);
+	printf("Current malloc position: %d\n\n", mll2);
+	printf("Current allocated memory: %d\n", allocatedSpace);
+	
+	void * mll3 = nmalloc(60);
+	printf("Current malloc position: %d\n\n", mll3);
+	printf("Current allocated memory: %d\n", allocatedSpace);
+
+	nfree(mll2);
+	printf("Current allocated memory: %d\n", allocatedSpace);
+
+	void * mll4 = nmalloc(40);
+	printf("Current malloc position: %d\n\n", mll4);
+	printf("Current allocated memory: %d\n", allocatedSpace);
 }
 
 void *nmalloc(unsigned int length)
