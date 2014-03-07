@@ -1,22 +1,15 @@
 #include "FilterInputStream.h"
 
-bool hasNext()
+bool fis_hasNext(struct FilterInputStream * fis)
 {
-	return input.hasNext();
+	return fis->is->hasNext(fis->is);
 }
 
-byte next()
+byte fis_next(struct FilterInputStream * fis)
 {
-	return input.next();
+	return fis->is->next(fis->is);
 }
 
-void delete()
+void fis_delete(struct FilterInputStream * fis)
 {
-	input.delete();
-}
-
-byte filter(char character)
-{
-	byte b = character;
-	return b;
 }

@@ -1,16 +1,15 @@
 #include "InputStream.h"
 
-bool hasNext();
-byte next();
-void delete();
-byte filter(char character);
+bool fis_hasNext();
+byte fis_next();
+void fis_delete();
 
-InputStream input;
-
-typedef struct
+typedef struct FilterInputStream
 {
+	InputStream_t * is;
 	bool (*hasNext)();
 	byte (*next)();
 	void (*delete)();
-	byte (*filter)(char character);
-} FilterInputStream;
+} FilterInputStream_t;
+
+FilterInputStream_t fis_t = { &is_t, &fis_hasNext, &fis_next, &fis_delete };

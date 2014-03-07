@@ -1,0 +1,24 @@
+C-Functions
+	-Call by value
+External Variables and Scope
+	-Variables can be made globally accessible by using the "extern" keyword
+		-"extern int max"
+	-Must be defined exactly once outside of any function (sets aside storage)
+	-Must be declared in each function that wants to access it
+Data types
+	-char
+		-single byte
+	-int
+		-reflecting the natural size of integers in the host machine
+	-float
+		-single precision floating point
+	-double
+		-double precision floating point
+Enum
+	-bsp.
+		-enum boolean { NO, YES}; -> No = 0, Yes = 1
+		-enum escapes { BELL = '\a', BACKSPACE = '\b', TAB = '\t' };
+	-Names in different enumerations must be distinct, values in the same enumeration need
+	not be distinct
+Operands
+	-% cannot be applied to a float or double

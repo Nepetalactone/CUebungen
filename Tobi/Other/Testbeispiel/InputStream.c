@@ -1,24 +1,30 @@
 #include "InputStream.h"
 
-bool hasNext()
+bool is_hasNext(struct InputStream * input)
 {
-	if (peek == NULL)
+	char * c = input->stream;
+	c += input->index;
+	//printf("2%c\n", *c);
+	c += 1;
+	//printf("3%c\n", *c);
+	if (c == '\0')
 	{
-		peek = getchar();
-		return peek;
-	} else
-	{
-		return peek;
+		return FALSE;
 	}
+	return TRUE;
 }
 
-byte next()
+byte is_next(struct InputStream * input)
 {
-	//peek = NULL;
-	//return getchar();
-	return (byte) 'x';
+	char * c = input->stream;
+	c += input->index;
+	if (is_hasNext(input) == TRUE)
+	{
+		input->index++;
+	}
+	return * c;
 }
 
-void delete()
+void is_delete(struct InputStream * input)
 {
 }

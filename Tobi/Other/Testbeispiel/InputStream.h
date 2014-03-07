@@ -1,15 +1,17 @@
 #include <stdio.h>
-#include "bool.h"
+#include "helper.h"
 
-bool hasNext();
-byte next();
-void delete();
+bool is_hasNext();
+byte is_next();
+void is_delete();
 
-char peek;
-
-typedef struct
+typedef struct InputStream
 {
-	bool (*hasNext)(); 
+	char * stream;
+	int index;
+	bool (*hasNext)();
 	byte (*next)();
 	void (*delete)();
-} InputStream;
+} InputStream_t;
+
+InputStream_t is_t = { "blablabla", 0, &is_hasNext, &is_next, &is_delete };
