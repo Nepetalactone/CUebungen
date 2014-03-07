@@ -28,3 +28,14 @@ byte is_next(struct InputStream * input)
 void is_delete(struct InputStream * input)
 {
 }
+
+InputStream_t * newInputStream()
+{
+	InputStream_t * in_t = (InputStream_t*) malloc(sizeof(InputStream_t));
+	in_t->stream = "blablabla";
+	in_t->index = 0;
+	in_t->hasNext = is_hasNext;
+	in_t->next = is_next;
+	in_t->delete = is_delete;
+	return in_t;
+}

@@ -1,15 +1,15 @@
+#ifndef FILTERINPUTSTREAM_H_
+#define FILTERINPUTSTREAM_H_
 #include "InputStream.h"
-
-bool fis_hasNext();
-byte fis_next();
-void fis_delete();
 
 typedef struct FilterInputStream
 {
 	InputStream_t * is;
-	bool (*hasNext)();
-	byte (*next)();
-	void (*delete)();
+	bool (*hasNext)(struct FilterInputStream * fis);
+	byte (*next)(struct FilterInputStream * fis);
+	void (*delete)(struct FilterInputStream * fis);
 } FilterInputStream_t;
 
-FilterInputStream_t fis_t = { &is_t, &fis_hasNext, &fis_next, &fis_delete };
+FilterInputStream_t * newFilterInputStream(InputStream_t * input);
+
+#endif

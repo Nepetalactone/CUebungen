@@ -1,17 +1,18 @@
+#ifndef INPUTSTREAM_H_
+#define INPUTSTREAM_H_ 
 #include <stdio.h>
+#include <stdlib.h>
 #include "helper.h"
-
-bool is_hasNext();
-byte is_next();
-void is_delete();
 
 typedef struct InputStream
 {
 	char * stream;
 	int index;
-	bool (*hasNext)();
-	byte (*next)();
-	void (*delete)();
+	bool (*hasNext)(struct InputStream * input);
+	byte (*next)(struct InputStream * input);
+	void (*delete)(struct InputStream * input);
 } InputStream_t;
 
-InputStream_t is_t = { "blablabla", 0, &is_hasNext, &is_next, &is_delete };
+InputStream_t * newInputStream();
+
+#endif
