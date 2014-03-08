@@ -2,15 +2,22 @@
 
 void obs_add(struct Observer * obs, struct Subscriber * sub)
 {
-	Node_t * iter = obs->list;
-	
-	while (iter->next != NULL)
+	if (obs->list != NULL)
 	{
-		iter++;
-	}
+		Node_t * iter = obs->list;
 	
-	Node_t * node = newNode(sub);
-	iter->next = node;
+		while (iter->next != NULL)
+		{
+			iter++;
+		}
+	
+		Node_t * node = newNode(sub);
+		iter->next = node;
+	} else 
+	{
+		Node_t * node = newNode(sub);
+		obs->list = node;
+	}
 	printf("added node %c", sub->number);
 }
 
