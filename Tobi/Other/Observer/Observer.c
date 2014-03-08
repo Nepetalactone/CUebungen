@@ -8,7 +8,7 @@ void obs_add(struct Observer * obs, struct Subscriber * sub)
 	
 		while (iter->next != NULL)
 		{
-			iter++;
+			iter = iter->next;
 		}
 	
 		Node_t * node = newNode(sub);
@@ -23,21 +23,26 @@ void obs_add(struct Observer * obs, struct Subscriber * sub)
 
 void obs_remove(struct Observer * obs, struct Subscriber * sub)
 {
+	printf("remove\n");
 	Node_t * iter = obs->list;
 	
 	while (iter->next->sub != sub)
 	{
-		iter++;
+		printf("searching\n");
+		iter = iter->next;
 	}
 	
 	if (iter->next->next == NULL)
 	{
+		printf("deleting");
 		iter->next = NULL;
+		sub->delete(sub);
 	}
 	else
 	{
 		Node_t * skip = iter->next->next;
 		iter->next = skip;
+		sub->delete(sub);
 	}
 }
 
@@ -50,8 +55,8 @@ void obs_propagate(struct Observer * obs, char * message)
 		do
 		{
 			iter->sub->notify(message, iter->sub);
-			iter++;
-		} while (iter->next != NULL);
+			iter = iter->next;
+		} while (iter != NULL);
 	}
 }
 

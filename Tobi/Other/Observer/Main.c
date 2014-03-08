@@ -12,4 +12,8 @@ main()
 	obs->add(obs, thirdSub);
 	
 	obs->propagate(obs, "blablabla");
+	
+	obs->remove(obs, secondSub);
+	
+	obs->propagate(obs, "blablabla");
 }
