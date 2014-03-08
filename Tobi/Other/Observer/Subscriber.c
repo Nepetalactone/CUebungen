@@ -2,12 +2,12 @@
 
 void sub_notify(char * message, struct Subscriber * sub)
 {
-	printf("%d", sub->number);
+	printf("%d ", sub->number);
 	
 	int i;
-	for (i = 0; i < 10; i++)
+	for (i = 0; i < 9; i++)
 	{
-		printf("%c", message++);
+		printf("%c", *message++);
 	}
 	printf("\n");
 }

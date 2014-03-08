@@ -18,7 +18,7 @@ void obs_add(struct Observer * obs, struct Subscriber * sub)
 		Node_t * node = newNode(sub);
 		obs->list = node;
 	}
-	printf("added node %c", sub->number);
+	printf("added node %d\n", sub->number);
 }
 
 void obs_remove(struct Observer * obs, struct Subscriber * sub)
