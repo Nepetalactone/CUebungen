@@ -29,11 +29,11 @@ void obs_remove(struct Observer * obs, struct Subscriber * sub)
 		if (iter->next == NULL)
 		{
 			obs->list = NULL;
-			//sub->delete(sub);
+			sub->delete(sub);
 		} else
 		{
 			obs->list = iter->next;
-			//sub->delete(sub);
+			sub->delete(sub);
 		}
 	} else
 	{
@@ -44,13 +44,13 @@ void obs_remove(struct Observer * obs, struct Subscriber * sub)
 		if (iter->next->next == NULL)
 		{
 			iter->next = NULL;
-			//sub->delete(sub);
+			sub->delete(sub);
 		}
 		else
 		{
 			Node_t * skip = iter->next->next;
 			iter->next = skip;
-			//sub->delete(sub);
+			sub->delete(sub);
 		}
 	}
 }
