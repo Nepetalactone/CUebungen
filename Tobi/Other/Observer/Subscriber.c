@@ -14,8 +14,11 @@ void sub_notify(char * message, struct Subscriber * sub)
 
 void sub_delete(struct Subscriber * sub)
 {
+	printf("deleting1\n");
 	free(sub);
+	printf("deleting2\n");
 	sub = NULL;
+	printf("deleting3\n");
 }
 
 Subscriber_t * newSubscriber(int no)

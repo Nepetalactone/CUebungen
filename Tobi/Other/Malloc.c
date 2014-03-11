@@ -18,6 +18,7 @@ typedef struct block block_t;
 static struct block_t * curPos;
 void * maxPos = (void *)&memory[MAXLENGTH];
 
+//Example makes use of void pointer arithmetic, which apparently only works thanks to a gcc extension
 void main()
 {
 	curPos = (block_t *) &memory[0];

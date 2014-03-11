@@ -16,6 +16,7 @@ struct block
 
 typedef struct block block_t;
 
+//Example makes use of void pointer arithmetic, which apparently only works thanks to a gcc extension
 void main()
 {
 	struct block * mainBlock = (block_t *) &memory[0];
